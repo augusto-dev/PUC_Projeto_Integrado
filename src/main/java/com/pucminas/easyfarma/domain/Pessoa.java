@@ -24,11 +24,11 @@ public class Pessoa implements Serializable {
     private String email;
     private String numero;
     private String endereco;
-    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "medico", orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Procedimento medico;
-    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "enfermeiro", orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Procedimento enfermeiro;
-    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "paciente", orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Procedimento paciente;
 
     public Pessoa() {

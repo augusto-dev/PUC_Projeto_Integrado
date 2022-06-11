@@ -17,15 +17,15 @@ public class Procedimento implements Serializable {
     private String descricao;
 
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_medico")
     private Pessoa medico;
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_enfermeiro")
     private Pessoa enfermeiro;
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_paciente")
     private Pessoa paciente;
     private Date data;
