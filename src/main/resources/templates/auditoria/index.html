@@ -1,0 +1,60 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Auditoria')}"></head>
+
+  <body>
+  <header th:replace="~{fragmentos :: header('Auditoria')}"></header>
+
+  <div class="container mb-4">
+    <div class="col-12">
+          <span th:styleappend="${(param.erro == null || param.mensagem == null) ? 'display: none;' : ''}"
+                th:classappend="${(param.erro != null && param.erro) ? 'error-message' : 'success-message'}"
+                th:text="${param.mensagem != null ? param.mensagem : ''}">Uma mensagem bem legal!</span>
+    </div>
+  </div>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Data</th>
+              <th scope="col">Autor</th>
+              <th scope="col">Ação</th>
+              <th scope="col">Item afetado</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Detalhes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="auditoria : ${auditorias}">
+              <th class="col-1" scope="row" th:text="${auditoria.getId()}">ID</th>
+              <td class="col-4" th:text="${auditoria.date}">Data</td>
+              <td class="col-2" th:text="${auditoria.realizedBy}">Autor</td>
+              <td class="col-2" th:text="${auditoria.action.toString()}">Ação</td>
+              <td class="col-2" th:text="${auditoria.affectedItem.toString()}">Item afetado</td>
+              <td class="col-2" th:text="${auditoria.itemName}">Nome</td>
+              <td class="col-2">
+                <form method = "GET" th:action="${auditoria.itemDetailUrl}">
+                  <input th:disabled="${auditoria.affectedItemId == null || auditoria.action.toString() == 'REMOVEU'}" type="submit" value="Detalhes">
+                  <i class="fa fa-facebook icon"></i>
+                </form>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script crossorigin="anonymous" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

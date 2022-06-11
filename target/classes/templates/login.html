@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <base href="/">
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Login Easy Farma</title>
+</head>
+<body>
+<h2 class="login-title">Login</h2>
+
+<form th:action="@{/login}" method="post" class="form-login">
+    <div class="imgcontainer">
+        <img th:src="@{images/img_avatar2.png}" class="avatar" alt="Avatar">
+    </div>
+
+    <div class="container">
+        <label for="username">Usuário</label>
+        <input id="username" type="text" name="username" autocomplete="off"
+               placeholder="Informe o usuario">
+
+        <label for="password">Senha</label>
+        <input id="password" type="password" name="password" autocomplete="off"
+               placeholder="Informe a senha">
+
+        <input type="submit" value="Login" class="custom-login-button">
+        <div th:if="${param.error}" class="alert alert-error">
+            Usuário ou senha inválidos!
+        </div>
+        <div th:if="${param.registerSuccess}" class="alert alert-success">
+            Usuário criado com sucesso
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success">
+            Deslogado com sucesso
+        </div>
+
+        <div class="container-actions">
+            <a href="/register">Registrar</a>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

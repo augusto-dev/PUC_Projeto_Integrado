@@ -1,0 +1,48 @@
+<div class="container" th:fragment="form(requisicaoFormPessoa, action)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="row">
+        <div class="container mb-4">
+            <div class="col-12">
+          <span th:styleappend="${(param.error == null) ? 'display: none;' : ''}"
+                th:classappend="${(param.error != null && param.error) ? 'error-message' : 'success-message'}"
+                th:text="${'Formulario com campos inválidos'}">Uma mensagem bem legal!</span>
+            </div>
+        </div>
+        <form th:object="${requisicaoFormPessoa}" th:action="${action}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Nome da Pessoa</label>
+                <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}">
+                <div class="invalid-feedback" th:errors="*{nome}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input class="form-control" th:errorclass="is-invalid" type="email" th:field="*{email}">
+                <div class="invalid-feedback" th:errors="*{email}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Numero para contato</label>
+                <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{numero}">
+                <div class="invalid-feedback" th:errors="*{numero}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Endereço</label>
+                <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{endereco}">
+                <div class="invalid-feedback" th:errors="*{endereco}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Data de nascimento</label>
+                <input class="form-control" type="date" th:errorclass="is-invalid" th:field="*{data_nascimento}" data-date-format="mm/dd/yy">
+                <div class="invalid-feedback" th:errors="*{data_nascimento}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tipo pessoa</label>
+                <select class="form-select" th:field="*{tipoPessoa}">
+                    <option th:each="tipo : ${listaTipoPessoas}"
+                            th:value="${tipo}" th:text="${tipo}"></option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Submeter</button>
+            <a href="javascript:history.back()">Voltar</a>
+        </form>
+    </div>
+</div>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">

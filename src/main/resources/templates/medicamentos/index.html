@@ -1,0 +1,56 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Lista de medicamentos')}"></head>
+
+  <body>
+  <header th:replace="~{fragmentos :: header('Lista de medicamentos')}"></header>
+
+  <div class="container mb-4">
+    <div class="col-12">
+          <span th:styleappend="${(param.erro == null || param.mensagem == null) ? 'display: none;' : ''}"
+                th:classappend="${(param.erro != null && param.erro) ? 'error-message' : 'success-message'}"
+                th:text="${param.mensagem != null ? param.mensagem : ''}">Uma mensagem bem legal!</span>
+    </div>
+  </div>
+
+  <body>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Data de vencimento</th>
+              <th scope="col">Quantidade</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="medicamento : ${medicamentos}">
+              <th class="col-1" scope="row" th:text="${medicamento.getId()}">ID</th>
+              <td class="col-4" th:text="${medicamento.nome}">Nome do medicamento</td>
+              <td class="col-2" th:text="${medicamento.data_vencimento}">Data de vencimento</td>
+              <td class="col-2" th:text="${medicamento.quantidade}">Quantidade</td>
+              <td class="col-1"><a th:href="@{/medicamentos/{medicamentoId}(medicamentoId = ${medicamento.id})}">Detalhes</a></td>
+              <td class="col-1"><a th:href="@{/medicamentos/{medicamentoId}/edit(medicamentoId = ${medicamento.id})}">Editar</a></td>
+              <td class="col-1"><a th:href="@{/medicamentos/{medicamentoId}/delete(medicamentoId = ${medicamento.id})}">Deletar</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <a href="/medicamentos/new">Novo medicamento</a>
+      </div>
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script crossorigin="anonymous" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<div class="container" th:fragment="form(requisicaoFormProcedimentos, action)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="row">
+        <div class="container mb-4">
+            <div class="col-12">
+          <span th:styleappend="${(param.error == null) ? 'display: none;' : ''}"
+                th:classappend="${(param.error != null && param.error) ? 'error-message' : 'success-message'}"
+                th:text="${'Formulario com campos inválidos'}">Uma mensagem bem legal!</span>
+            </div>
+        </div>
+        <form th:object="${requisicaoFormProcedimentos}" th:action="${action}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Descrição do procedimento</label>
+                <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{descricao}">
+                <div class="invalid-feedback" th:errors="*{descricao}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Data</label>
+                <input class="form-control" type="date" th:errorclass="is-invalid" th:field="*{data}" data-date-format="mm/dd/yy">
+                <div class="invalid-feedback" th:errors="*{data}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Médico responsável</label>
+                <select class="form-select" th:field="*{medico.id}">
+                    <option th:each="medico : ${medicos_field}"
+                            th:value="${medico.id}" th:text="${medico.tipoPessoa + ' - ' + medico.nome}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Enfermeiro responsável</label>
+                <select class="form-select" th:field="*{enfermeiro.id}">
+                    <option th:each="enfermeiro : ${enfermeiros_field}"
+                            th:value="${enfermeiro.id}" th:text="${enfermeiro.tipoPessoa + ' - ' + enfermeiro.nome}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Paciente</label>
+                <select class="form-select" th:field="*{paciente.id}">
+                    <option th:each="paciente : ${pacientes_field}"
+                            th:value="${paciente.id}" th:text="${paciente.tipoPessoa + ' - ' + paciente.nome}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Valor</label>
+                <input class="form-control" th:errorclass="is-invalid" type="number" th:field="*{preco}">
+                <div class="invalid-feedback" th:errors="*{preco}"></div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submeter</button>
+            <a href="javascript:history.back()">Voltar</a>
+        </form>
+    </div>
+</div>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">

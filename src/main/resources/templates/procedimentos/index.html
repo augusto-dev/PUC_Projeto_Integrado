@@ -1,0 +1,58 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Lista de Procedimentos')}"></head>
+
+  <body>
+  <header th:replace="~{fragmentos :: header('Lista de Procedimentos')}"></header>
+
+  <div class="container mb-4">
+    <div class="col-12">
+          <span th:styleappend="${(param.erro == null || param.mensagem == null) ? 'display: none;' : ''}"
+                th:classappend="${(param.erro != null && param.erro) ? 'error-message' : 'success-message'}"
+                th:text="${param.mensagem != null ? param.mensagem : ''}">Uma mensagem bem legal!</span>
+    </div>
+  </div>
+
+  <body>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Médico responsável</th>
+              <th scope="col">Enfermeiro responsável</th>
+              <th scope="col">Paciente</th>
+              <th scope="col">Data</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="procedimento : ${procedimentos}">
+              <th class="col-1" scope="row" th:text="${procedimento.getId()}">ID</th>
+              <td class="col-3" th:text="${procedimento.medico != null ? procedimento.medico.nome : ''}">Médico responsável</td>
+              <td class="col-3" th:text="${procedimento.medico != null ? procedimento.enfermeiro.nome : ''}">Enfermeiro responsável</td>
+              <td class="col-3" th:text="${procedimento.medico != null ? procedimento.paciente.nome : ''}">Paciente</td>
+              <td class="col-4" th:text="${#dates.format(procedimento.data, 'dd-MM-yyyy')}">Data</td>
+              <td class="col-1"><a th:href="@{/procedimentos/{procedimentoId}(procedimentoId = ${procedimento.id})}">Detalhes</a></td>
+              <td class="col-1"><a th:href="@{/procedimentos/{procedimentoId}/edit(procedimentoId = ${procedimento.id})}">Editar</a></td>
+              <td class="col-1"><a th:href="@{/procedimentos/{procedimentoId}/delete(procedimentoId = ${procedimento.id})}">Deletar</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <a href="/procedimentos/new">Novo procedimento</a>
+      </div>
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script crossorigin="anonymous" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

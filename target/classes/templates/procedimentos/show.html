@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head('Novo Procedimento')}"></head>
+
+<body>
+<header th:replace="~{fragmentos :: header('Procedimento #' + ${procedimento.id})}"></header>
+
+<main>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <b>Id:</b> <span th:text="${procedimento.getId()}"></span><br/>
+                <b>Descricao:</b> <span th:text="${procedimento.descricao}"></span><br/>
+                <b>Médico:</b> <span th:text="${procedimento.medico.nome}"></span><br/>
+                <b>Enfermeiro:</b> <span th:text="${procedimento.enfermeiro.nome}"></span><br/>
+                <b>Paciente:</b> <span th:text="${procedimento.paciente.nome}"></span><br/>
+                <b>Data:</b> <span th:text="${#dates.format(procedimento.data, 'dd-MM-yyyy')}"></span><br/>
+                <b>Valor:</b> <span th:text="${#numbers.formatDecimal(procedimento.preco, 0, 'COMMA', 2, 'POINT')}"></span><br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a th:href="@{/procedimentos/{procedimentoId}/edit(procedimentoId = ${procedimento.id})}">Editar</a> <a href="/procedimentos">Voltar</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
